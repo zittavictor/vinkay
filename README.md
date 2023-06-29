@@ -1,3 +1,1 @@
-# vinkay
-This is our vinkay project on how to calculate gpa of a student
-
+This is project which helps to calculate the mean standard devation and quantiles of a set of data which is then concatenated and then added to new columns
