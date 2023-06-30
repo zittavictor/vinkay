@@ -1,1 +1,1 @@
-This is project which helps to calculate the mean standard devation and quantiles of a set of data which is then concatenated and then added to new columns
+This code basically tells the title of a book and also tells us about the author of the book
