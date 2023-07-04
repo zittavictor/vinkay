@@ -1,63 +1,41 @@
-import csv
-import random
-import math
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
 
-# Generate a dataset and save it to a CSV file
-def generate_dataset(filename):
-    with open(filename, 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(['a', 'b', 'c', 'd'])  # Write column headers
-        for i in range(100):  # Generate 100 rows of random values
-            row = [random.randint(1, 100) for _ in range(4)]  # Generate random values for each column
-            writer.writerow(row)
 
-# Calculate the mean of a column
-def calculate_mean(column):
-    return sum(column) / len(column)
+class Library:
+    def __init__(self, name):
+        self.name = name
+        self.books = []
 
-# Calculate the median of a column
-def calculate_median(column):
-    sorted_column = sorted(column)
-    length = len(sorted_column)
-    if length % 2 == 0:
-        return (sorted_column[length // 2 - 1] + sorted_column[length // 2]) / 2
-    else:
-        return sorted_column[length // 2]
+    def add_book(self, book):
+        self.books.append(book)
 
-# Calculate the variance of a column
-def calculate_variance(column, mean):
-    return sum((x - mean) ** 2 for x in column) / len(column)
+    def remove_book(self, book):
+        if book in self.books:
+            self.books.remove(book)
+        else:
+            print(f"The book '{book.title}' by {book.author} is not found in the library")
 
-# Calculate the standard deviation of a column
-def calculate_standard_deviation(column, mean):
-    variance = calculate_variance(column, mean)
-    return math.sqrt(variance)
+    def display_books(self):
+        print(f'Books in the library include:')
+        if self.books:
+            for book in self.books:
+                print(f'title: {book.title},author: {book.author}')
+        else:
+            print('the library is currently empty')
 
-# Read the dataset from the CSV file and calculate statistics for each column
-def calculate_statistics(filename):
-    with open(filename, 'r') as file:
-        reader = csv.reader(file)
-        next(reader)  # Skip the header row
-        data = list(reader)
 
-    # Extract the columns from the data
-    columns = list(zip(*data))
+my_library = Library('my library')
+book1 = Book('harry potter', 'j.k rowling')
+book2 = Book('persy jackson', 'rick  riordan')
+book3 = Book('nelson mandela', 'nelson mandela')
 
-    for i, column in enumerate(columns):
-        column = list(map(int, column))
-        mean = calculate_mean(column)
-        median = calculate_median(column)
-        variance = calculate_variance(column, mean)
-        std_deviation = calculate_standard_deviation(column, mean)
+my_library.add_book(book1)
+my_library.add_book(book2)
+my_library.add_book(book3)
 
-        print(f"Column {chr(ord('a')+i)}:")
-        print(f"Mean: {mean}")
-        print(f"Median: {median}")
-        print(f"Variance: {variance}")
-        print(f"Standard Deviation: {std_deviation}")
-        print()
-
-# Generate the dataset and calculate statistics
-filename = 'example.csv'
-generate_dataset(filename)
-calculate_statistics(filename)
+my_library.display_books()
+my_library.remove_book(book2)
+my_library.display_books()
